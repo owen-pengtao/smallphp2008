@@ -1,0 +1,24 @@
+#box_mutual{text-align:center;font-size:12px;background:#F8F8F9;border:1px solid #666666;position:absolute;z-index:1000}
+/*
+#box_mutual{top:expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(15 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');}
+*/
+	.box_confirm{width:260px;height:88px;}
+
+	#box_mutual button{cursor:pointer;height:22px;line-height:22px;}
+	button#box_close{float:right;border:1px dotted #FFF;background:none;color:#000;}
+
+	#box_mutual p{text-align:left;line-height:20px;}
+	.box_alert div.alert_corner{position:absolute;top:10px;left:-12px;height:12px;width:12px;background:url(img_js/alert_corner.gif) no-repeat;}
+	.box_confirm div.confirm_corner{position:absolute;top:88px;left:0;height:12px;width:100%;background:url(img_js/confirm_corner.gif) no-repeat 200px 0;}
+
+	#box_mutual button.box_ok, #box_mutual button.box_cancel{float:left;display:inline;width:60px;line-height:20px;margin-left:12px;}
+		#box_mutual button.box_ok{margin-left:110px;background:#2782D6;border-top:1px solid #DDD;border-left:1px solid #DDD;border-right:1px solid #264F6E;border-bottom:1px solid #264F6E;color:#FFF;}
+		#box_mutual button.box_cancel{background:#EEEEEE;border-top:1px solid #FFF;border-left:1px solid #FFF;border-right:1px solid #999;border-bottom:1px solid #999;color:#000;}
+	#box_mutual p.box_text_alert{margin:25px 10px;text-indent:2em;}
+	#box_mutual p.box_text_confirm{margin:15px 20px;font-size:14px;font-weight:bold;}
+
+.ajax_msg, .warning{display:block;color:#006600;width:80%;height:32px;line-height:32px;margin:5px;text-align:center;border:1px solid #FF0066;background:#FFCCCC}
+.warning{height:24px;line-height:24px;}
+
+label.error{display:block;margin:5px 0 5px 5px;padding:4px 5px 4px 25px;color:#000000;border:1px solid #FF6600;background:#FFF2E9 url(img_js/standard_msg_error.gif) no-repeat scroll 5px;}
+p label.error{display:inline;}

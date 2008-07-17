@@ -1,0 +1,67 @@
+html, body{height:100%;}
+body{font-size:12px;background:#fff;color:#000;font-family:Helvetica,Georgia,"Courier New",sans-serif,"宋体";font-size:12px;}
+body,form,p,ol,ul,p,h1,h2,h3,h4{margin:0;padding:0;}
+/*	Text Color	*/
+.tc_red{color:#F00;}
+.tc_green{color:#0A0;}
+.tc_white{color:#FFF;}
+.tc_black{color:#000;}
+
+/*	Text Style	*/
+.ts_strong{font-weight:bold;}
+.ts_center{text-align:center;}
+.ts_s{text-decoration:line-through;}
+.ts_u{text-decoration:underline;}
+.ts_left{text-align:left;}
+.ts_right{text-align:right;}
+.ts_ul{margin-left:40px;}
+.ts_ul li{display: list-item}
+
+/*	Position	*/
+.p_left{float:left;}
+.p_right{float:right;}
+.p_rel{position: relative;}
+.p_abs{position: absolute;}
+
+/*	Border	*/
+.b0{border:0;}
+.b1{border:1px solid #002D96;}
+
+/*	Margin	*/
+.m0{margin:0;}
+
+/*	Table Img From	*/
+table{border-collapse:collapse;}
+img{border:0;}
+
+textarea, input.t_text{border:1px solid #04A7D7;}
+input, select{font-family:"Courier New",arial,sans-serif,"宋体";}
+textarea{overflow:auto;word-wrap:break-word;}
+
+
+/*	Other	*/
+.clear{clear:both;height:0px;line-height:0px;font-size:0px;}
+.hand{cursor:pointer !important;cursor:hand;}
+
+.hidden{display:none;}
+.show{display:block;}
+
+
+/*	link A	*/
+a{color:#000;text-decoration:none;}
+a:link{color:#000;text-decoration:none;}
+a:hover {color:#333;text-decoration:underline;}
+
+a.a_red{color:#F00;}
+a.a_red:hover{color:#F00;}
+
+a.a_blue{color:#00F;}
+a.a_blue:hover{color:#00F;}
+
+/*	page	*/
+.page{clear:both;padding:10px 0;width:100%;text-align:center;}
+	.page a.go{padding:2px 6px;font-family: Arial, Helvetica, sans-serif;font-weight:bold;font-size:14px;}
+	.page strong{padding:4px 0;font-weight:normal;}
+	.page span, .page a, .page strong, .page input, .page select{display:inline;}
+	.page span, .page a{padding:4px 8px;border:1px solid #59B0E3;background:#F6FBFD;color:#088CD5;}
+	.page a:hover, .page span.b{background:#59B0E3;color:#FFF;text-decoration:none;}
