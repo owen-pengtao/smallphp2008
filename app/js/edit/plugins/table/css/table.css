@@ -1,0 +1,17 @@
+/* CSS file for table dialog in the table plugin */
+* {
+	font-family: Helvetica, Georgia, "Courier New", sans-serif, "宋体";
+	font-size: 12px;
+}
+
+.panel_wrapper div.current {
+	height: 245px;
+}
+
+.advfield {
+	width: 200px;
+}
+
+#class {
+	width: 150px;
+}

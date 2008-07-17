@@ -1,0 +1,17 @@
+/*---- table css begin ----*/
+	.t_table{border-collapse:collapse;text-align:center;margin:auto;font-size:1.2em;}
+	.t_table caption{height:30px;line-height:30px;font-size:1.2em;font-weight:bold;text-align:left;padding-left:20px;background:#A4D1FF;color:#FFFFFF;margin:auto;}
+	.t_table tr{height:30px;line-height:30px;}
+	.t_table tr.t_two{background:#F0F8FF;}
+	.t_table tr.t_tr_over{background:#CCFFCC;}
+	.t_table tr.t_tr_click{background:#FCE492;}
+
+	.t_table tr.tr_one{background:#F4F4F4;}
+	.t_table tr.tr_one input, .t_table tr.tr_one select{margin:0 4px;}
+	.t_table tr.tr_one_op td{padding:5px 0;text-align:left;padding-left:55px;background:url('img_root/sp_arrow_ltr.gif') 24px 10px no-repeat;}
+	.t_table tr.tr_one_op td a.op_add{display:-moz-inline-box;display:inline-block;margin-left:300px;color:#F00;}
+
+	.t_table tr th{height:32px;background:#D0E8FF;}
+	.t_table tr td.t_td_left{text-align:left;padding-left:20px;}
+	.t_table tr td.t_td_right{text-align:right;padding-right:20px;}
+/*---- table css end ----*/
