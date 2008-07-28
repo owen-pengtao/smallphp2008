@@ -1,7 +1,7 @@
 <?php
 class root_comment extends root{
 	function __construct(){
-		$this->tab = 'comments';
+		$this->tab = T.'comments';
 		$this->_init_param();
 	}
 	function del(){

@@ -152,13 +152,11 @@ class db {
 	 * @param string $tab 表名
 	 * @param string $where 查询条件
 	 * @param string $fields 返回字段
-	 * @param string $orderby 排序字段
-	 * @param string $sort DESC/ASC 排列顺序
 	 * @return array 返回所查询的一条数据记录
 	 * @author owen 2008-6-10 <yytcpt@gmail.com>
 	 */
-	function row_select_one($tab, $where, $fields="*", $orderby="id", $sort="DESC"){
-		$sql = $this->sql_select($tab, $where, 1, $fields?$fields:'*', $orderby, $sort);
+	function row_select_one($tab, $where, $fields="*"){
+		$sql = $this->sql_select($tab, $where, 1, $fields?$fields:'*');
 		return $this->row_query_one($sql);
 	}
 	/**
@@ -290,7 +288,8 @@ class db {
         return @mysql_num_rows($this->query_id);
     } 
 	private function sql_select($tab, $where="", $limit=0, $fields="*", $orderby="id", $sort="DESC"){
-		$sql = "SELECT ".$fields." FROM `".$tab."` ".($where?" WHERE ".$where:"")." ORDER BY ".$orderby." ".$sort.($limit ? " limit ".$limit:"");
+		$sql = "SELECT ".$fields." FROM `".$tab."` ".($where?" WHERE ".$where:"");
+		$sql.= $limit>1 ? " ORDER BY ".$orderby." ".$sort.($limit ? " limit ".$limit:"") : '';
 		return $sql;
 	}
 	private function sql_insert($tab, $row){
@@ -322,7 +321,7 @@ class db {
 		$message = $error_str."<br/>\r\n";
 		$message.= $this->_get_errno() . "<br/>\r\n";
 		$row_all_tables = $this->get_all_tables();
-		$tab_db_error	= 'db_error';
+		$tab_db_error	= T.'db_error';
 		if (!in_array($tab_db_error, $row_all_tables)) {
 			$sql = "CREATE TABLE IF NOT EXISTS `".$tab_db_error."` (
 				  `id` int(11) NOT NULL auto_increment,

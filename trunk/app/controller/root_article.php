@@ -1,10 +1,10 @@
 <?php
 class root_article extends root{
 	function __construct(){
-		$this->tab			= 'articles';
-		$this->tab_content	= 'articles_content';
-		$this->tab_tag		= 'tags';
-		$this->tab_comment	= 'comments';
+		$this->tab			= T.'articles';
+		$this->tab_content	= T.'articles_content';
+		$this->tab_tag		= T.'tags';
+		$this->tab_comment	= T.'comments';
 		$this->_init_param();
 	}
 	function add(){

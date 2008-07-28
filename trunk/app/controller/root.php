@@ -19,7 +19,7 @@ class root extends controller{
 	}
 	function edit(){
 		$id = intval($_GET['id']);
-		$row = $this->db->row_select_one($this->tab, $this->auto_id.'='.$id, '*', $this->auto_id);
+		$row = $this->db->row_select_one($this->tab, $this->auto_id.'='.$id);
 		$this->tpl['row'] = $row;
 		return $row;
 	}

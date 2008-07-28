@@ -1,7 +1,7 @@
 <?php
 class root_user extends root{
 	function __construct(){
-		$this->tab = 'users';
+		$this->tab = T.'users';
 		$this->_init_param();
 	}
 	function save(){
