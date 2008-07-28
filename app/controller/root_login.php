@@ -5,7 +5,7 @@
  */
 class root_login extends root{
 	function __construct(){
-		$this->tab = 'users';
+		$this->tab = T.'users';
 	}
 	function index() {
 	

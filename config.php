@@ -7,6 +7,7 @@
 	define('DIR_UP_IMG_S', 'small');
 	define('DIR_ADMIN', 'root');
 	define('DOMAIN', $_SERVER['HTTP_HOST']);
+	define('T', 'sp_');
 
 	define('SITE_PATH', dirname(__FILE__).DS);
 	define('SITE_URL', 'http://'.DOMAIN.'/');

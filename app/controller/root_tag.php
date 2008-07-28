@@ -1,7 +1,7 @@
 <?php
 class root_tag extends root{
 	function __construct(){
-		$this->tab = 'tags';
+		$this->tab = T.'tags';
 		$this->_init_param();
 	}
 	function save(){
