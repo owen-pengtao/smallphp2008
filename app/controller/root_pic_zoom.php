@@ -3,7 +3,7 @@ class root_pic_zoom extends root{
 	function save(){
 		$width	= $_POST['width'];
 		$height	= $_POST['height'];
-		$path_file	= PATH_UP_IMAGES_SMLLL;
+		$path_file	= PATH_UP_IMAGES_SMALL;
 		$small_file = $path_file.($_POST['filename'] ? $_POST['filename'] : get_begin_str(basename($_FILES['file']['name']), '.')).'_'.$width.'_'.$height;
 		$up_file = $small_file.get_end_str($_FILES['file']['name'], '.', 1);
 		if (!file_exists($up_file)) {

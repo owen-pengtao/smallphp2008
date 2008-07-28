@@ -16,7 +16,7 @@
 	$arr_td = array(
 			array('选择文件', $f->file(array('file', 'required'))),
 			array('宽、高', $f->text(array('width', 'number')).' X '.$f->text(array('height', 'number')).'100X100, 150X200, 133X100X5'),
-			array('文件名称', $f->text(array('filename')).'若为空，则文件名 宽_高.jpg<br/>'.PATH_UP_IMAGES_SMLLL.'<br/>'.URL_UP_IMAGES_SMLLL),
+			array('文件名称', $f->text(array('filename')).'若为空，则文件名 宽_高.jpg<br/>'.PATH_UP_IMAGES_SMALL.'<br/>'.URL_UP_IMAGES_SMLLL),
 		);
 	$arr_td_width = array('12%', '88%');
 	foreach ($arr_td AS $v) {

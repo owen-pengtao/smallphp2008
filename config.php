@@ -15,7 +15,7 @@
 	define('PATH_APP', SITE_PATH.APP_DIR.DS);
 	define('PATH_FRAME', SITE_PATH.'frame'.DS);
 	define('PATH_CLASS', PATH_FRAME.'class'.DS);
-	define('PATH_TMP', SITE_PATH.APP_DIR.DS.'tmp'.DS);
+	define('PATH_TMP', SITE_PATH.'tmp'.DS);
 	define('PATH_CACHES', PATH_TMP.'caches'.DS);
 	define('PATH_CONTROLLER', SITE_PATH.APP_DIR.DS.'controller'.DS);
 	define('PATH_CONFIG', SITE_PATH.APP_DIR.DS.'config'.DS);
@@ -29,7 +29,7 @@
 
 	define('PATH_UP', SITE_PATH.DIR_UP.DS);
 	define('PATH_UP_IMAGES', PATH_UP.DIR_UP_IMG.DS);
-	define('PATH_UP_IMAGES_SMLLL', PATH_UP_IMAGES.DIR_UP_IMG_S.DS);
+	define('PATH_UP_IMAGES_SMALL', PATH_UP_IMAGES.DIR_UP_IMG_S.DS);
 
 	define('URL_UPLOAD', SITE_URL.DIR_UP.'/');
 	define('URL_UP_IMAGES', URL_UPLOAD.DIR_UP_IMG.'/');
