@@ -133,7 +133,7 @@ class pic{
 	function change_format($file){
 		$this->get_file_info($file);
 		$arr = pathinfo($file);
-		$this->set_output_name($arr['filename']);
+		$this->set_output_name($arr['dirname'].DS.$arr['filename']);
 		$this->crop_image_by_xy($this->file_size[0], $this->file_size[1], 0, 0);
 		$this->file_extension = 'jpg';
 		$this->create_pic();
