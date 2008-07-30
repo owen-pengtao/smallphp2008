@@ -10,22 +10,22 @@ class table{
 	 * @var public
 	 */
 	public $tab_type;
-	public $is_js;
+	public $td_sum;
+	private $admin_page;
 
+	private $is_js;
 	private $is_add;
 	private $is_edit;
 	private $is_del;
 	private $is_select;
-	private $admin_page;
-	
+
 	private $_n;
-	private $td_sum;
 	private $td_width;
 	private $td_class;
 	private $tr_th;
 	function __construct(){
 		$this->tab_type	= array('97%', '#0099FF', 't_table', '', '');	//表格宽度，边框颜色，表格Class，id，style
-		
+
 		$this->_n		= "\r\n";
 		$this->td_sum	= 0;
 		$this->td_width	= array();
@@ -34,7 +34,7 @@ class table{
 
 		$this->f = new form();
 		$this->f->tab_i = 100;		//设定表单的 tabindex 起始值
-		$this->f->is_validate = 0;
+		$this->f->is_validate = 0;	//设定表单的 js检测 不输出
 	}
 	/**
 	 * 设置表格中，添加、编辑、删除链接，复选框，添加/编辑页面的文件名
@@ -46,7 +46,7 @@ class table{
 	 * @return void()
 	 * @author owen 2008-6-12
 	 */
-	function set_op($is_add=0, $is_edit=0, $is_del=0, $is_select=1, $admin_page='') {
+	function set_op($is_add=1, $is_edit=1, $is_del=1, $is_select=1, $admin_page='') {
 		$this->is_add	= $is_add;
 		$this->is_edit	= $is_edit;
 		$this->is_del	= $is_del;
@@ -72,7 +72,7 @@ class table{
 			array_unshift($this->td_class, '');
 			array_unshift($this->tr_th, '选择');
 		}
-		
+
 		if ($this->is_edit or $this->is_del) {
 			$this->td_width[]	= '10%';
 			$this->td_class[]	= '';
@@ -188,13 +188,14 @@ class table{
 	 * 显示一个通行，此行只有一列
 	 * @param string $td_str 要显示在此行中的字符串
 	 * @param string $class 此行的样式
+	 * @param int $colspan 总列数
 	 * @return string 表格的一行，只有一列<tr>代码</tr>
 	 * @author owen 2008-6-12
 	 */
-	function tr_one($td_str, $class='') {
+	function tr_one($td_str, $class='', $colspan=0) {
 		if ($td_str) {
 			$str = '<tr'.($class ? ' class="'.$class.'"' : '').'>'.$this->_n;
-			$str.= '<td colspan="'.$this->td_sum.'">';
+			$str.= '<td colspan="'.($colspan ? $colspan : $this->td_sum).'">';
 			$str.= $td_str;
 			$str.= '</td>'.$this->_n;
 			$str.= '</tr>'.$this->_n;
@@ -210,16 +211,16 @@ class table{
 	 */
 	function tr_one_op($arr_op=array(), $arr_opm=array()) {
 		$this->is_del ? $arr_op['del'] = '删除':'';
-		
+
 		if ($arr_op) {
 			$str.= $this->f->label($this->f->checkbox(array(), array('全选')));
 			$str.= str_repeat(' &nbsp; ', 5);
 			$str.= $this->f->label($this->f->radio(array('item_op'), $arr_op), '选中项');
-	
+
 			foreach ((array)$arr_opm as $k=>$v) {
 				$str.= $this->f->select(array($k), $v);
 			}
-			$str.= str_repeat(' &nbsp; ', 5);;
+			$str.= str_repeat(' &nbsp; ', 5);
 			$str.= $this->f->submit();
 		}
 		$str.= $this->is_add ? '<a href="'.$this->admin_page.'?a=add" class="op_add">添加记录</a>':'';
@@ -230,9 +231,11 @@ class table{
 	 * @return string 表格的一行，显示提交按钮
 	 * @author owen 2008-6-12
 	 */
-	function tr_td_submit(){
+	function tr_td_submit($is_back=1){
 		$str = $this->f->submit();
-		$str.= $this->f->back();
+		if ($is_back) {
+			$str.= $this->f->back();
+		}
 		return $this->tr_one($str, 'tr_one');
 	}
 	/**
@@ -288,6 +291,7 @@ class table{
 	 */
 	private function _td_sum($arr_td){
 		$this->td_sum = count($arr_td);
+		return $this->td_sum;
 	}
 	/**
 	 * 输出table所用的js
@@ -311,9 +315,13 @@ class table{
 					);
 					$(".t_table tr.tr_row td a").click(
 						function(e){if (e){	e.stopPropagation();}else{window.event.cancelBubble = true;}}
-					);';
+					);
+					$(".t_table tr.tr_row td input[type=checkbox]").click(
+						function(e){if (e){	e.stopPropagation();}else{window.event.cancelBubble = true;}}
+					);
+					';
 		if ($this->is_edit or $this->is_del or $this->is_select) {
-		$str.= '
+			$str.= '
 					$(".t_table tr.tr_one_op td input[type=radio]").parent().dblclick(function(){$(this).children().attr("checked", "");});
 					$(".t_table tr.tr_one_op td input[value^=del]").click(function(){if(!confirm("确认选择删除操作？")) {$(this).attr("checked", "");}});
 					$(".t_table tr.tr_one_op td input[type=checkbox]").click(
