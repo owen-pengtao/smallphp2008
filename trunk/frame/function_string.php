@@ -1,16 +1,24 @@
 <?php
 	/*-------------			string函数			-------------*/
-	/*
-	 *	统计UTF-8编码的字符长度
-	 *	一个中文，一个英文都为一个字
+	/**
+	 * 统计UTF-8编码的字符长度
+	 * 一个中文，一个英文都为一个字
+	 * @param string $str 字符串
+	 * @return int 字符串长度
+	 * @author owen 2008-6-13
 	 */
 	function utf8_strlen($str) {
 		return preg_match_all('/[\x00-\x7F\xC0-\xFD]/', $str, $dummy);
 	}
-	/*
-	 *	中文截取函数
-	 *	$slh 是否有省略号，$start 从第几个字开始截取
-	 *	一个中文，一个英文都为一个字
+	/**
+	 * 中文截取函数
+	 * 一个中文，一个英文都为一个字
+	 * @param string $string 被截取的字符串
+	 * @param int $len 被截取的长度
+	 * @param boolean $slh 是否有省略号
+	 * @param int $start 从第几个字开始截取
+	 * @return string 截取后的字符串
+	 * @author owen 2008-6-13
 	 */
 	function utf8_substr($string, $len=14, $slh=0, $start=0){
 		if ($slh AND utf8_strlen($string)>$len) {
@@ -19,23 +27,37 @@
 		return preg_replace('#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$start.'}'.
 							'((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$len.'}).*#s', '$1', $string).$str_slh;
 	}
-	//编码 用户输入的字符串string ，插入数据库中
+	/**
+	 * 把字符串编码
+	 * 编码用户输入的字符串string ，插入数据库中
+	 * @param string $str
+	 * @return string
+	 * @author owen 2008-6-13
+	 */
 	function html_encode($str){
 		$arr_sor = array('>', '<', "'", '"', chr(32), "\r\n");
 		$arr_rep = array('&gt;', '&lt;', '&#39;', '&#34;', '&nbsp;', '<br/>');
 		$str = str_replace($arr_sor, $arr_rep, trim($str));
 		return $str;
 	}
-	//解码数据库中 字符串，显示在textarea中
+	/**
+	 * 把字符串解码
+	 * 解码数据库中 字符串，显示在textarea中
+	 * @param string $str
+	 * @return string
+	 * @author owen 2008-6-13
+	 */
 	function html_decode($str){
 		$arr_sor = array('&gt;', '&lt;', '&#39;', '&#34;', '&nbsp;', '<br/>');
 		$arr_rep = array('>', '<', "'", '"', chr(32), "\r\n");
 		$str = str_replace($arr_sor, $arr_rep, trim($str));
 		return $str;
 	}
-	/*
-	 * 过滤，插入数据库，带有html字符串的数据
-	 * $str 可以是数组或字符串
+	/**
+	 * addslashes过滤，插入数据库，带有html字符串的数据
+	 * @param string|array $str 可以是数组或字符串
+	 * @return string|array
+	 * @author owen 2008-6-13
 	 */
 	function addslashes_str($str){
 		if (is_array($str)){
@@ -47,9 +69,11 @@
 		}
 		return $str;
 	}
-	/*
-	 * 还原数据，取出数据库，带有html字符串的数据
-	 * $str 可以是数组或字符串
+	/**
+	 * stripslashes还原数据，取出数据库，带有html字符串的数据
+	 * @param string|array $str 可以是数组或字符串
+	 * @return string|array
+	 * @author owen 2008-6-13
 	 */
 	function stripslashes_str($str){
 		if (is_array($str)){
@@ -102,23 +126,38 @@
 		$text = preg_replace ($search, $replace, $str);
 		return $text;
 	}
-	/*
-	 *	取得最后一个某字符$expstr以前的，$isstr=1 包括此字符
-	 *	get_begin_str('smallphp.com.gif', '.', 1) = 'smallphp.com.'
+	/**
+	 * 取得最后一个某字符$expstr以前的，$isstr=1 包括此字符
+	 * get_begin_str('smallphp.com.gif', '.', 1) = 'smallphp.com.'
+	 * @param string $str
+	 * @param string $expstr 分隔符
+	 * @param boolean $isstr 是否包含分隔符
+	 * @return string
+	 * @author owen 2008-6-13
 	 */
 	function get_begin_str($str, $expstr="/", $isstr=0){
 		return substr($str, 0, strrpos($str, $expstr)+$isstr);
 	}
-	/*
-	 *	取得最后一个某字符$expstr以后的，$isstr=1 包括此字符
-	 *	get_end_str('smallphp.com.gif', '.', 1) = '.gif'
+	/**
+	 * 取得最后一个某字符$expstr以后的，$isstr=1 包括此字符
+	 * 例：get_end_str('smallphp.com.gif', '.', 1) = '.gif'
+	 * @param string $str
+	 * @param string $expstr 分隔符
+	 * @param boolean $isstr 是否包含分隔符
+	 * @return string
+	 * @author owen 2008-6-13
 	 */
 	function get_end_str($str, $expstr="/", $isstr=0){
 		return substr($str, strrpos($str, $expstr)-strlen($str)+(empty($isstr)?1:0));
 	}
-	/*
+	/**
 	 * 在每个字符间插入文字(UTF8)
-	 * $str:被切分字符，$len:切分字符个数，$what:要插入的文字，$isin:在文字之间插入，还是之后
+	 * @param string $str 被切分字符，
+	 * @param int $len 切分字符个数
+	 * @param string $what 要插入的文字，
+	 * @param boolean $isin 在文字之间插入，还是之后
+	 * @return string
+	 * @author owen 2008-6-13
 	 */
 	function utf8_wordwrap($str, $len, $what, $isin=1){
 		# usage: utf8_wordwrap("text",3,"<br>");
@@ -140,12 +179,14 @@
 		$str = $isin ? implode($arr , $what) : $total;
 		return $str;
 	}
-
 	/*-------------			array函数			-------------*/
-
-	/*
-	 *	把数组的键、值联合起来，变成字符串
-	 *	array('a'=>1, 'b'=>2)	a=1&b=2
+	/**
+	 * 把数组的键、值联合起来，变成字符串
+	 * array('a'=>1, 'b'=>2)	a=1&b=2
+	 * @param array $arr 文件路径
+	 * @param string $join_str 连接字符串
+	 * @return array
+	 * @author owen 2008-6-13
 	 */
 	function arr_join($arr, $join_str="&"){
 		$arr_str = array();
@@ -154,27 +195,23 @@
 		}
 		return join($join_str, $arr_str);
 	}
-	/*
-	 *	把数组$arr 保存成 $var变量在 $file中
-	 *	调用时，include(xxx); print_r($array);
+	/*-------------			array函数			-------------*/
+	/**
+	 * 把数组$arr 保存成 $var变量在 $file中
+	 * 调用时，include(xxx); print_r($array);
+	 * @param string $file 文件路径
+	 * @param array $arr 被保存的数组
+	 * @return boolean
+	 * @author owen 2008-6-13
 	 */
 	function arr_save_to_file($file, $arr){
-		file_put_contents($file, '<?php $array = '.preg_replace("/\s/i", "", var_export($arr, TRUE)).';?>');
+		return file_put_contents($file, '<?php $array = '.preg_replace("/\s/i", "", var_export($arr, TRUE)).';?>');
 	}
-	/*
-	 * 将2维数组变成一维数组
-	 */
-	function arr_muli_to_one($arr_muli){
-		$arr = array();
-		foreach ((array)$arr_muli AS $v){
-			foreach($v AS $vv){
-				$arr[] = $vv;
-			}
-		}
-		return $arr;
-	}
-	/*
+	/**
 	 * 去掉数组中为空，且重复的值
+	 * @param array $arr
+	 * @return array
+	 * @author owen 2008-6-13
 	 */
 	function arr_remove_null($arr){
 		$arr = array_unique($arr);
@@ -185,28 +222,73 @@
 		}
 		return $arr;
 	}
+	/**
+	 * 将2维数组变成一维数组
+	 * @param array $arr_muli 二维数组
+	 * @return array 一维数组
+	 * @author owen 2008-6-13
+	 */
+	function arr_muli_to_one($arr_muli){
+		$arr = array();
+		foreach ((array)$arr_muli AS $v){
+			foreach($v AS $vv){
+				$arr[] = $vv;
+			}
+		}
+		return $arr;
+	}
 	/*-------------			文件函数			-------------*/
-	/*
+	/**
 	 * 把数据追加到文件
+	 * @param string $file 文件路径
+	 * @param string $str 被追加的字符串
+	 * @return void()
+	 * @author owen 2008-6-13
 	 */
 	function add_str_to_file($file, $str){
 		$fb = fopen($file, "a");
 		fwrite($fb, $str);
 		fclose($fb);
 	}
-
+	/**
+	 * 根据id生成文件目录，$id <= $max的3次方
+	 * 数量级小于10亿，此算法有效
+	 * @param int $id
+	 * @param \,/ $ds 目录斜杠 \或/
+	 * @param int $max 一个目录存放最多文件个数
+	 * @return string 例如 1/1
+	 * @author owen 2008-6-13
+	 */
+	function get_id_path($id, $ds='', $max=1000){
+		$dir = array();
+		$dir[] = ceil($id/pow($max, 2));
+		if ($id<=pow($max, 2)){
+			$dir[] = ceil($id/$max);
+		}else{
+			$num = $id%pow($max, 2);
+			if ($num>=$max){
+				$dir[] = ceil($num/$max);
+			}else{
+				$dir[] = $num?$num:$max;
+			}
+		}
+		$ds = $ds ? $ds : DS;
+		return join($ds, $dir);
+	}
 	/*-------------			url函数			-------------*/
-
-	/*
+	/**
 	 * 获取当前地址栏 URL
+	 * @return string
+	 * @author owen 2008-6-13
 	 */
 	function get_url(){
-		return "http://".$_SERVER["HTTP_HOST"].str_replace('&', '&amp;', $_SERVER["REQUEST_URI"]);
+		return "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
 	}
-	/*	定时跳转
-	 *	$url 为空时后退到上一页
-	 *	$info 跳转时需要显示的文字
-	 *	$time 3秒后跳转
+	/**
+	 * 定时跳转
+	 * @param string $url 要跳转去的页面，为空时，返回上一页
+	 * @return void()
+	 * @author owen 2008-7-11
 	 */
 	function go_url($url="", $info="操作成功！", $time=1){
 		$url = $url?$url:$_SERVER["HTTP_REFERER"];
@@ -220,14 +302,33 @@
 	function go_url_err($url="", $info="操作失败！", $time=3){
 		go_url($url, $info, $time);
 	}
+	/**
+	 * 页面跳转
+	 * @param string $url 跳转页面
+	 * @return void()
+	 * @author owen 2008-7-10
+	 */
 	function header_go($url=''){
 		$url = $url?$url:$_SERVER["HTTP_REFERER"];
 		header("Location: ".$url);
 		exit;
 	}
+	/**
+	 * 404页面跳转
+	 * @return void()
+	 * @author owen 2008-7-10
+	 */
 	function header_404(){
 		header("Status: 404 Not Found");
 		header_go("/404.html");
+	}
+	function go_back($msg=''){
+		$str = '<script type="text/javascript">';
+		$str.= $msg ? 'document.write("'.str_replace('"', '\\"', $msg).'");' : '';
+		$str.= 'setTimeout(function(){history.back(-1);}, 1000);';
+		$str.= '</script>';
+		echo $str;
+		exit;
 	}
 	function get_url_html() {
 		$str = '

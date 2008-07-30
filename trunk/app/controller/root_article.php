@@ -54,7 +54,7 @@ class root_article extends root{
 						);
 			if ($this->db->row_update($this->tab, $row, 'id='.$id) AND $this->db->row_update($this->tab_content, $row_content, 'article_id='.$id)) {
 				$this->_save_tags($id, $tag, 1);
-				header_go($_SERVER['PHP_SELF'].'?search_type=id&search_key='.$id);
+				header_go($_SERVER['PHP_SELF']);
 			}else{
 				header_go();
 			}

@@ -102,7 +102,7 @@ class root extends controller{
 			 *	失败时，header_go()返回
 			 */
 			if ($this->db->row_update($this->tab, $row, $this->auto_id.'='.$id)) {
-				header_go($_SERVER['PHP_SELF'].'?search_type='.$this->auto_id.'&search_key='.$id);
+				header_go($_SERVER['PHP_SELF']);
 			}else{
 				header_go();
 			}

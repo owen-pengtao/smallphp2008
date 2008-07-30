@@ -23,7 +23,7 @@ class root_category extends root{
 	var $str_ul;
 	function __construct($channel, $tab=''){
 		$this->channel	= $channel;
-		$this->tab	= $tab ? $tab : $this->channel.'_categories';
+		$this->tab	= $tab ? $tab : T.$this->channel.'_categories';
 		$this->_init();
 	}
 	function index() {

@@ -62,6 +62,7 @@ class form{
 	}
 	/**
 	 * 获取JS检测的验证字符串
+	 * 自定义检测例子： {custom}rangeValue:[4,12], 以 {custom} 开头，后面的字符串是自定义检测标记
 	 * @param string|array $key
 	 * @return string js验证字符串
 	 * @author owen 2008-6-12
@@ -72,8 +73,8 @@ class form{
 						'email'		=> 'required:true,email:true',
 						'password'	=> 'password:true',
 						'password_re'	=> 'password:true,equalTo:\'#password\'',
-						'number'	=> 'number:true',
-						'digits'	=> 'digits:true',
+						'number'	=> 'number:true',	//请输入数字。
+						'digits'	=> 'digits:true',	//只能输入数字[0-9]。
 						'url'		=> 'url:true',
 						'dateISO'	=> 'dateISO:true',
 					);
@@ -81,13 +82,25 @@ class form{
 			$arr = array();
 			$str = '{';
 			foreach ((array)$key as $v) {
-				$arr[] = $this->validate[$key];
+				if (strstr($v, '{custom}')) {
+					$str_custom = $this->_get_custom_validate($v);
+					$arr[] = $str_custom;
+				}else{
+					$arr[] = $this->validate[$v];
+				}
 			}
 			$str = '{'.join(',', $arr).'}';
+		}elseif (strstr($key, '{custom}')){
+			$str_custom = $this->_get_custom_validate($key);
+			$str = $str_custom ? '{'.$str_custom.'}' : '';
 		}else{
 			$str = '{'.$this->validate[$key].'}';
 		}
 		return $str;
+	}
+	function _get_custom_validate($str){
+		$arr = explode('{custom}', $str);
+		return $arr[1];
 	}
 	/**
 	 * 增加一个form 控件，tabindex 序号+1
@@ -341,9 +354,6 @@ class form{
 		$str.= '</textarea>'.$this->_n;
 		return $str;
 	}
-	/*
-	 *	$size>0 为多选
-	 */
 	/**
 	 * 下拉框表单控件
 	 * @param array $arr_type array('name', 'validate', 'title', 'class', 'id', 'style', 'disabled')
@@ -360,7 +370,7 @@ class form{
 		$this->att_id(&$arr_type, 'select');
 		$str = '<select '.$this->att_val($arr_type).$str_o.$this->__input($str_tmp, 0).'>'.$this->_n;
 		foreach ((array)$arr_opt as $k=>$v) {
-			$str.= '<option value="'.$k.'"'.($selected==$k?' selected="selected"':'').'>'.$v.'</option>'.$this->_n;
+			$str.= '<option value="'.$k.'"'.($selected==$k ? ' selected="selected"':'').'>'.$v.'</option>'.$this->_n;
 		}
 		$str.= '</select>'.$this->_n;
 		return $str;

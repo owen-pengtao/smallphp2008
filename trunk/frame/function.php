@@ -77,24 +77,4 @@
 		}
 		return $arr;
 	}
-	/*
-	 * 根据id生成文件目录，$id <= $max的3次方
-	 * 数量级小于10亿，此算法有效
-	 */
-	function get_id_path($id, $ds='', $max=1000){
-		$dir = array();
-		$dir[] = ceil($id/pow($max, 2));
-		if ($id<=pow($max, 2)){
-			$dir[] = ceil($id/$max);
-		}else{
-			$num = $id%pow($max, 2);
-			if ($num>=$max){
-				$dir[] = ceil($num/$max);
-			}else{
-				$dir[] = $num?$num:$max;
-			}
-		}
-		$ds = $ds ? $ds : DS;
-		return join($ds, $dir);
-	}
 ?>

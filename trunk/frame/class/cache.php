@@ -39,7 +39,7 @@ class cache{
 	/**
 	 * 缓存数据
 	 */
-	private $cache_content;
+	public $cache_content;
 	function __construct(){
 		$this->cache_file	= '';
 		$this->cache_time	= 3600*24;

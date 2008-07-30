@@ -39,7 +39,12 @@ class db {
 	 */
 	private $q_arr;
 	private $query_log;
-
+	/**
+	 * 是否开启事务
+	 * @var boolean true开启，false默认关闭
+	 */
+	private $transaction;
+	
 	/**
 	 * db类初始化
 	 * 把 close_db()方法放入register_shutdown_function() 中执行 (页面输出完毕，执行close_db())<br/>
@@ -48,6 +53,7 @@ class db {
 	function __construct() {
 		$this->debug	= false;
 		$this->pconnect		= false;
+		$this->transaction	= false;
 		$this->query_count	= 0;
 		$this->queries		= array();
 		$this->query_log	= array();
@@ -321,7 +327,7 @@ class db {
 		$message = $error_str."<br/>\r\n";
 		$message.= $this->_get_errno() . "<br/>\r\n";
 		$row_all_tables = $this->get_all_tables();
-		$tab_db_error	= T.'db_error';
+		$tab_db_error	= 'db_error';
 		if (!in_array($tab_db_error, $row_all_tables)) {
 			$sql = "CREATE TABLE IF NOT EXISTS `".$tab_db_error."` (
 				  `id` int(11) NOT NULL auto_increment,
@@ -491,6 +497,25 @@ class db {
 		}
 		$this->query_log[] = $str;
         return $this->query_id;
+	}
+	function begin(){
+		$this->query_unbuffered('BEGIN');
+		$this->transaction = 1;
+	}
+	function commit(){
+		if ($this->transaction) {
+			$this->query_unbuffered('COMMIT');
+			$this->transaction = 0;
+		}
+	}
+	function savepoint($point){
+		$this->query_unbuffered('SAVEPOINT '.$point);
+	}
+	function rollback($point=''){
+		if ($this->transaction) {
+			$this->query_unbuffered('ROLLBACK'.($point ? ' TO SAVEPOINT '.$point : ''));
+			$this->transaction = 0;
+		}
 	}
 	function __destruct(){
 		$this->close_db();
