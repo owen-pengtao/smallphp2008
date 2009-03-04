@@ -80,6 +80,17 @@ class table{
 		}
 	}
 	/**
+	 * 设置form表单的 action 值
+	 * @param string $str 准备输出的字符串
+	 * @param string $action form表单的 action 值
+	 * @return string
+	 * @author owen 2009-3-4
+	 */
+	function set_form($str, $action){
+		$str = preg_replace("/action=\"(.*?)\"/", 'action="'.$action.'"', $str);
+		return $str;
+	}
+	/**
 	 * 设置表格属性
 	 * @param array $arr_type array('width', 'bordercolor', 'class', 'id', 'style')
 	 * @param boolean $border 是否显示表格边框
@@ -93,7 +104,10 @@ class table{
 		$str_tmp = $arr_type[3] ? ' id="'.$arr_type[3].'"' : '';
 		$str_tmp.= $arr_type[4] ? ' style="'.$arr_type[3].'"' : '';
 
-		$str = '<table width="'.$width.'" bordercolor="'.$bordercolor.'" class="'.$class.'" border="'.$border.'" align="center" cellpadding="0" cellspacing="0"'.$str_tmp.'>'.$this->_n;
+		if ($this->is_edit or $this->is_del or $this->is_select) {
+			$str = $this->f->form_start($_SERVER['PHP_SELF'], array("form_class"));
+		}
+		$str.= '<table width="'.$width.'" bordercolor="'.$bordercolor.'" class="'.$class.'" border="'.$border.'" align="center" cellpadding="0" cellspacing="0"'.$str_tmp.'>'.$this->_n;
 		return $str;
 	}
 	/**
@@ -102,10 +116,10 @@ class table{
 	 * @author owen 2008-6-12
 	 */
 	function table_end(){
+		$str = '</table>'.$this->_n;
 		if ($this->is_edit or $this->is_del or $this->is_select) {
-			$str = $this->f->form_end();
+			$str.= $this->f->form_end().$this->_n;
 		}
-		$str.= '</table>'.$this->_n;
 		$str.= $this->is_js ? $this->_js().$this->_n:'';
 		return $str;
 	}
@@ -127,9 +141,6 @@ class table{
 	 */
 	function tr_th() {
 		$this->_th_init($this->tr_th);
-		if ($this->is_edit or $this->is_del or $this->is_select) {
-			$str = $this->f->form_start($_SERVER['PHP_SELF'], array("form_class"));
-		}
 		$str.= '<tr>'.$this->_n;
 		foreach ((array)$this->tr_th as $k=>$v) {
 			$str.= '<th width="'.$this->td_width[$k].'">'.$v.'</th>';

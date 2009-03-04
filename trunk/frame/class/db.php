@@ -295,7 +295,7 @@ class db {
     } 
 	private function sql_select($tab, $where="", $limit=0, $fields="*", $orderby="id", $sort="DESC"){
 		$sql = "SELECT ".$fields." FROM `".$tab."` ".($where?" WHERE ".$where:"");
-		$sql.= $limit>1 ? " ORDER BY ".$orderby." ".$sort.($limit ? " limit ".$limit:"") : '';
+		$sql.= $limit==1 ? '' : ' ORDER BY '.$orderby." ".$sort.($limit ? " limit ".$limit:"");
 		return $sql;
 	}
 	private function sql_insert($tab, $row){

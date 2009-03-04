@@ -8,14 +8,14 @@
 <?php include('head.php');?>
 <?php
 	$t = new table();
-	$str = $t->table_start();
+	$f = new form();
+	$str = $f->form_start('?', array(), 'get');
+	$str.= $t->table_start();
 	$arr_td = array(
 					'<a href="?">所有评论列表</a>',
 					'<a href="?where=is_pass=0">未审核评论</a>',
 				);
 	$str.= $t->tr_td($arr_td);
-		$f = new form();
-		$str_f = $f->form_start('?', array(), 'get');
 		$arr_s = array('content' => '内容', 'id' => 'ID');
 		$str_f.= $f->select(array('search_type'), $arr_s, $_GET['search_type']);
 
@@ -31,9 +31,9 @@
 		$str_f.= $f->select(array('order'), $arr_s, $_GET['order']);
 
 		$str_f.= $f->submit();
-		$str_f.= $f->form_end();
 	$str.= $t->tr_one($str_f, 'tr_one');
 	$str.= $t->table_end();
+	$str.= $f->form_end();
 	echo $str;
 	unset($f, $str_f, $str);
 

@@ -69,11 +69,16 @@ class cache{
 	 * @return boolean true有效	 false无效
 	 */
 	function cache_is_valid(){
-		if (file_exists($this->cache_file) AND ((time()-filemtime($this->cache_file)) < $this->cache_time)) {	//缓存不过期 且 缓存存在
-			$this->_get_cache();
-			$bool = true;
-		}else{
-			$bool = false;
+		$bool_file	= file_exists($this->cache_file);
+		$bool = false;
+		if ($bool_file) {
+			$bool_time	= ((time()-filemtime($this->cache_file)) < $this->cache_time || $this->cache_time==0);
+
+			$bool_clear = (isset($_GET['clear']) && $_GET['clear']==1) ? false : true;
+			if ($bool_time && $bool_clear) {	//缓存不过期 且 缓存存在
+				$this->_get_cache();
+				$bool = true;
+			}
 		}
 		return $bool;
 	}

@@ -8,9 +8,9 @@
 <?php include('head.php');?>
 <?php
 	$t = new table();
-	$str = $t->table_start();
+	$str = $f->form_start('?', array(), 'get');
+	$str.= $t->table_start();
 		$f = new form();
-		$str_f = $f->form_start('?', array(), 'get');
 		$arr_s = array('error_str' => '错误信息', 'id' => 'ID');
 		$str_f.= $f->select(array('search_type'), $arr_s, $_GET['search_type']);
 
@@ -23,9 +23,9 @@
 		$str_f.= $f->select(array('order'), $arr_s, $_GET['order']);
 
 		$str_f.= $f->submit();
-		$str_f.= $f->form_end();
 	$str.= $t->tr_one($str_f, 'tr_one');
 	$str.= $t->table_end();
+	$str.= $f->form_end();
 	echo $str;
 	unset($f, $str_f, $str);
 
