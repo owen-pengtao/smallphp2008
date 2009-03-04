@@ -10,11 +10,12 @@
 	if ($action=='add' OR $action=='edit') {
 		include('edit.php');
 		$t = new table();
-
-		$str = $t->table_start();
-		$str.= $t->caption('文章管理');
 		$f = new form();
+
+		$str = '';
 		$str.= $f->form_start('?a=save');
+		$str.= $t->table_start();
+		$str.= $t->caption('文章管理');
 			$arr_td = array(
 					array('类别', $f->select(array('cid', 'required'), $tpl->arr_opt, $tpl->row['cid'])),
 					array('标题', $f->text(array('title', 'required', '', 't_text'), array($tpl->row['title']))),
@@ -31,8 +32,8 @@
 			}
 		$str.= $t->tr_td_submit();
 		$str.= $f->hidden('id', $tpl->row['id']);
-		$str.= $f->form_end();
 		$str.= $t->table_end();
+		$str.= $f->form_end();
 		echo $str;
 	}else{
 		$t = new table();

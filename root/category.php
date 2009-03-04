@@ -10,11 +10,12 @@
 <?php
 	$t = new table();
 	$f = new form();
-	$str = $t->table_start();
-	$str.= $t->caption($channel.' 分类管理');
+	$str = $f->form_start();
+	$str.= $t->table_start();
+	$str.= $t->caption($channel.' 分类管理 '.'<a href="?channel='.$channel.'&a=add&pid=0">添加根分类</a>');
 
 	if ($action=='add' OR $action=='edit') {
-		$str.= $f->form_start('?a=save&channel='.$channel);
+		$t->set_form(&$str, '?a=save&channel='.$channel);
 		$arr_td = array(
 				array('父级分类', $f->select(array('pid'), $tpl->arr_opt, intval($_GET['pid']))),
 				array('分类名称', $f->text(array('title', 'required', '', 't_text'), array(html_decode($tpl->row['title'])))),
@@ -26,14 +27,14 @@
 		$str.= $f->hidden('id', $tpl->row['id']);
 	}else{
 		$f->is_validate = 0;
-		$str.= $f->form_start('?a=save_ranking&channel='.$channel);
+		$t->set_form(&$str, '?a=save_ranking&channel='.$channel);
 		$str_ul = $controller->get_cat_ul(intval($_GET['cid']));
 		$str.= $t->tr_one($str_ul);
 	}
 
 	$str.= $t->tr_one($f->submit());
-	$str.= $f->form_end();
 	$str.= $t->table_end();
+	$str.= $f->form_end();
 	echo $str;
 ?>
 <?php include('end.php');?>

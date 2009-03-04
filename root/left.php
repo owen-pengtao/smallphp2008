@@ -12,7 +12,6 @@
 		<ul>
 			<li><a href="<?= SITE_URL?>" target="_blank">网站首页</a></li>
 			<li><a href="main.php" target="main">后台首页</a></li>
-			<li><a href="http://pma/" target="_blank">数据库</a></li>
 			<li><a href="login.php?a=logout" target='_parent'>退出后台</a></li>
 		</ul>
 	</div>

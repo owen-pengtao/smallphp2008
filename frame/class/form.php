@@ -387,7 +387,7 @@ class form{
 	 * @return string <form ……>
 	 * @author owen 2008-6-12
 	 */
-	function form_start($action, $class_id=array(), $method='post', $target='', $str_tmp='') {
+	function form_start($action='', $class_id=array(), $method='post', $target='', $str_tmp='') {
 		$arr_target = array('_blank', '_parent', '_self', '_top');
 		$f_class = $class_id[0] ? $class_id[0] : 'f_form';
 		$f_id = $class_id[1] ? ' id="'.$class_id[1].'"' : '';

@@ -10,10 +10,10 @@
 	if ($action=='add' OR $action=='edit') {
 		$t = new table();
 
-		$str = $t->table_start();
+		$str = $f->form_start('?a=save');
+		$str.= $t->table_start();
 		$str.= $t->caption('用户管理');
 		$f = new form();
-		$str.= $f->form_start('?a=save');
 			$arr_td = array(
 					array('用户名', $f->text(array('username', 'required', '', 't_text'), array($tpl->row['username']))),
 					array('密码', $f->password(array('password', 'password', '', 't_text'), '', '')),
@@ -25,8 +25,8 @@
 			}
 		$str.= $t->tr_td_submit();
 		$str.= $f->hidden('id', $tpl->row['id']);
-		$str.= $f->form_end();
 		$str.= $t->table_end();
+		$str.= $f->form_end();
 		echo $str;
 	}else{
 		$t = new table();

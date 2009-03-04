@@ -230,7 +230,7 @@ class pagelist{
 			if (empty($this->count_sql) and !empty($this->table["tablename"])){
 				$sql = "SELECT count(".$this->table["id"].") as count_id FROM `".$this->table["tablename"]."` ".($this->table["where"]!=""?" WHERE ".$this->table["where"]:"");
 			}else{
-				$sql = preg_replace("/SELECT(.*)FROM(.*)ORDER(.*)/i", "SELECT count(".$this->table["id"].") AS count_id FROM\${2}", $this->sql);
+				$sql = preg_replace("/SELECT(.*)FROM(.*?)(ORDER|LIMIT)(.*)/i", "SELECT count(".$this->table["id"].") AS count_id FROM\${2}", $this->sql);
 			}
 			$arr = $this->db->row_query_one($sql);
 			$this->total_records = $arr["count_id"];

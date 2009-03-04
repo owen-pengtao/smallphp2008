@@ -9,10 +9,10 @@
 <?php
 	$t = new table();
 	if ($action=='add' OR $action=='edit') {
-		$str = $t->table_start();
+		$str = $f->form_start('?a=save');
+		$str.= $t->table_start();
 		$str.= $t->caption('标签管理');
 		$f = new form();
-		$str.= $f->form_start('?a=save');
 			$arr_td = array(
 					array('TAG标签', $f->text(array('title', 'required', '', 't_text'), array($tpl->row['title']))),
 				);
@@ -22,8 +22,8 @@
 			}
 		$str.= $t->tr_td_submit();
 		$str.= $f->hidden('id', $tpl->row['id']);
-		$str.= $f->form_end();
 		$str.= $t->table_end();
+		$str.= $f->form_end();
 	}else{
 		$str = $t->table_start();
 			$f = new form();
